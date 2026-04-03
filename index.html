@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AisthOS — The Perception Operating System</title>
+    <meta name="description" content="Reverse compilation of sensor signals into structured knowledge. Privacy-by-design. Open source.">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --ultramarine: #3F51B5;
+            --indigo: #7C6AF7;
+            --dark: #1a1a2e;
+            --light: #F0EEFF;
+            --white: #FFFFFF;
+            --gray: #6B7280;
+            --spark: #FFD700;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--dark);
+            background: var(--white);
+            line-height: 1.6;
+        }
+        
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--light);
+            z-index: 100;
+            padding: 16px 0;
+        }
+        nav .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--dark);
+            text-decoration: none;
+        }
+        .nav-brand span { color: var(--indigo); }
+        .nav-links { display: flex; gap: 28px; }
+        .nav-links a {
+            color: var(--gray);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--indigo); }
+        
+        /* HERO */
+        .hero {
+            padding: 160px 24px 100px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--light) 0%, var(--white) 100%);
+        }
+        .hero-mascot {
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 32px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(124, 106, 247, 0.3);
+            background: var(--light);
+        }
+        .hero-mascot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .hero h1 {
+            font-size: 52px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 8px;
+        }
+        .hero h1 span { color: var(--indigo); }
+        .hero .tagline {
+            font-size: 20px;
+            color: var(--gray);
+            margin-bottom: 16px;
+            font-weight: 400;
+        }
+        .hero .subtitle {
+            font-size: 17px;
+            color: var(--gray);
+            max-width: 640px;
+            margin: 0 auto 40px;
+        }
+        .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background: var(--indigo);
+            color: white;
+            box-shadow: 0 4px 12px rgba(124, 106, 247, 0.4);
+        }
+        .btn-primary:hover { background: var(--ultramarine); transform: translateY(-1px); }
+        .btn-secondary {
+            background: white;
+            color: var(--dark);
+            border: 2px solid var(--light);
+        }
+        .btn-secondary:hover { border-color: var(--indigo); color: var(--indigo); }
+        
+        /* SECTIONS */
+        section { padding: 80px 24px; }
+        .container { max-width: 1100px; margin: 0 auto; }
+        
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        .section-subtitle {
+            text-align: center;
+            color: var(--gray);
+            font-size: 18px;
+            margin-bottom: 48px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* CONCEPT */
+        .concept {
+            background: var(--dark);
+            color: white;
+            border-radius: 16px;
+            padding: 48px;
+            margin: 0 auto;
+            max-width: 800px;
+            text-align: center;
+        }
+        .concept .arrow-down {
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 12px;
+        }
+        .concept .arrow-up {
+            font-size: 14px;
+            color: var(--spark);
+            margin-bottom: 12px;
+        }
+        .concept code {
+            display: block;
+            font-size: 15px;
+            line-height: 2;
+            color: var(--light);
+        }
+        .concept .highlight { color: var(--spark); font-weight: 600; }
+        .concept .dim { color: rgba(255,255,255,0.4); }
+        
+        /* NUMBERS */
+        .numbers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+            margin-top: 48px;
+        }
+        .number-card {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 32px 24px;
+            text-align: center;
+        }
+        .number-card .big {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--indigo);
+        }
+        .number-card .label {
+            font-size: 14px;
+            color: var(--gray);
+            margin-top: 8px;
+        }
+        
+        /* FEATURES */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+        .feature-card {
+            padding: 32px;
+            border-radius: 12px;
+            border: 1px solid var(--light);
+            transition: border-color 0.2s;
+        }
+        .feature-card:hover { border-color: var(--indigo); }
+        .feature-card .icon { font-size: 32px; margin-bottom: 16px; }
+        .feature-card h3 { font-size: 18px; margin-bottom: 8px; }
+        .feature-card p { font-size: 14px; color: var(--gray); }
+        
+        /* HARDWARE TABLE */
+        .hw-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 32px;
+        }
+        .hw-table th {
+            background: var(--dark);
+            color: white;
+            padding: 14px 20px;
+            text-align: left;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .hw-table td {
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--light);
+            font-size: 14px;
+        }
+        .hw-table tr:nth-child(even) { background: var(--light); }
+        
+        /* CERTIFICATION */
+        .cert-section { background: var(--light); }
+        .cert-badge {
+            display: inline-block;
+            background: var(--dark);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 24px;
+        }
+        .cert-badge span { color: var(--spark); }
+        .principles {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+            margin-top: 32px;
+        }
+        .principle {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 16px;
+            background: white;
+            border-radius: 8px;
+        }
+        .principle .num {
+            background: var(--indigo);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .principle p { font-size: 14px; }
+        
+        /* CTA */
+        .cta {
+            text-align: center;
+            padding: 80px 24px;
+            background: linear-gradient(180deg, var(--white) 0%, var(--light) 100%);
+        }
+        .cta h2 { font-size: 32px; margin-bottom: 16px; }
+        .cta p { color: var(--gray); margin-bottom: 32px; }
+        
+        /* FOOTER */
+        footer {
+            padding: 40px 24px;
+            text-align: center;
+            color: var(--gray);
+            font-size: 14px;
+            border-top: 1px solid var(--light);
+        }
+        footer a { color: var(--indigo); text-decoration: none; }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 32px; }
+            .hero .tagline { font-size: 16px; }
+            .concept { padding: 24px; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="container">
+        <a href="/" class="nav-brand">Aisth<span>OS</span></a>
+        <div class="nav-links">
+            <a href="#concept">Concept</a>
+            <a href="#hardware">Hardware</a>
+            <a href="#certification">Certification</a>
+            <a href="#applications">Applications</a>
+            <a href="https://github.com/aisthos/aisthos">GitHub</a>
+        </div>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-mascot"><img src="mascot.png" alt="Aisth — AisthOS mascot"></div>
+    <h1>Aisth<span>OS</span></h1>
+    <p class="tagline">The Perception Operating System</p>
+    <p class="subtitle">Every OS compiles <em>down</em>. AisthOS compiles <em>up</em> — from sensor signals to structured knowledge. Raw data never leaves the device.</p>
+    <div class="hero-buttons">
+        <a href="https://github.com/aisthos/aisthos" class="btn btn-primary">View on GitHub</a>
+        <a href="https://dev.to/desve/aisthos-what-if-your-os-compiled-up-instead-of-down-1glp" class="btn btn-secondary">Read the Article</a>
+    </div>
+</section>
+
+<!-- CONCEPT -->
+<section id="concept">
+    <div class="container">
+        <h2 class="section-title">Reverse Compilation</h2>
+        <p class="section-subtitle">Traditional OS compiles code down to hardware signals. AisthOS compiles sensor signals up to knowledge.</p>
+        
+        <div class="concept">
+            <div class="arrow-down">Traditional OS: Intent → Code → Compiler → Machine Code → Hardware ▼</div>
+            <br>
+            <code>
+                <span class="dim">Sensor signals →</span> <span class="highlight">Template</span> <span class="dim">(what to extract)</span><br>
+                <span class="dim">→</span> <span class="highlight">Filter</span> <span class="dim">(when to extract)</span><br>
+                <span class="dim">→</span> <span class="highlight">Perception Compiler</span> <span class="dim">(AI engine)</span><br>
+                <span class="dim">→</span> <span class="highlight">Spark</span> <span class="dim">(~200 bytes of anonymized knowledge)</span>
+            </code>
+            <br>
+            <div class="arrow-up">▲ AisthOS: Signals → Template → Filter → Compiler → Knowledge</div>
+        </div>
+        
+        <div class="numbers">
+            <div class="number-card">
+                <div class="big">&gt;10,000×</div>
+                <div class="label">Data compression<br>4K video → Spark</div>
+            </div>
+            <div class="number-card">
+                <div class="big">18 fps</div>
+                <div class="label">On smart glasses<br>at 62.9 mW</div>
+            </div>
+            <div class="number-card">
+                <div class="big">120 fps</div>
+                <div class="label">On RPi5 + Hailo-8L<br>$70 AI Kit</div>
+            </div>
+            <div class="number-card">
+                <div class="big">~200 B</div>
+                <div class="label">One Spark<br>vs 3 MB of video</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- HARDWARE -->
+<section id="hardware" style="background: var(--light);">
+    <div class="container">
+        <h2 class="section-title">Works on Real Hardware</h2>
+        <p class="section-subtitle">Not a concept — running on existing consumer devices today.</p>
+        
+        <table class="hw-table">
+            <thead>
+                <tr>
+                    <th>Device</th>
+                    <th>Chip</th>
+                    <th>Performance</th>
+                    <th>Power</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Smart glasses</td>
+                    <td>GAP9 RISC-V</td>
+                    <td>18 fps</td>
+                    <td>62.9 mW (9.3h battery)</td>
+                </tr>
+                <tr>
+                    <td>Dashcam</td>
+                    <td>Ambarella CV72S</td>
+                    <td>4×5MP + AI</td>
+                    <td>&lt;3 W</td>
+                </tr>
+                <tr>
+                    <td>Camera + RPi5</td>
+                    <td>Hailo-8L (13 TOPS)</td>
+                    <td>~120 fps</td>
+                    <td>4–5 W</td>
+                </tr>
+                <tr>
+                    <td>Smartphone</td>
+                    <td>Snapdragon 8 Elite</td>
+                    <td>56 models &lt;5 ms</td>
+                    <td>~45 TOPS NPU</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div style="text-align: center; margin-top: 32px; padding: 20px; background: var(--dark); color: var(--light); border-radius: 8px; font-family: monospace; font-size: 14px;">
+            capture(5ms) → detect(8ms) → classify(3ms) → filter(1ms) → spark(2ms) = <span style="color: #FFD700; font-weight: bold;">19ms → 52 fps</span>
+        </div>
+    </div>
+</section>
+
+<!-- CERTIFICATION -->
+<section id="certification" class="cert-section">
+    <div class="container">
+        <h2 class="section-title">AisthOS Inside™</h2>
+        <p class="section-subtitle">Open certification standard. Proving privacy, not promising it.</p>
+        
+        <div style="text-align: center;">
+            <div class="cert-badge">AisthOS Inside<span>™</span> Certified</div>
+        </div>
+        
+        <p style="text-align: center; max-width: 600px; margin: 0 auto 24px; color: var(--gray);">
+            Code is MIT (free). The certification mark requires passing verification. Like Wi-Fi Certified — but for privacy.
+        </p>
+        
+        <div class="principles">
+            <div class="principle"><div class="num">1</div><p><strong>No raw data storage.</strong> Ever.</p></div>
+            <div class="principle"><div class="num">2</div><p><strong>Sparks-only output.</strong> Anonymized metadata.</p></div>
+            <div class="principle"><div class="num">3</div><p><strong>No PII in Sparks.</strong> Constitutional Layer validates.</p></div>
+            <div class="principle"><div class="num">4</div><p><strong>User controls everything.</strong> Templates, Filters, export.</p></div>
+            <div class="principle"><div class="num">5</div><p><strong>Visible indicator.</strong> Tamper-protected.</p></div>
+            <div class="principle"><div class="num">6</div><p><strong>No hidden modes.</strong> No debug bypass.</p></div>
+            <div class="principle"><div class="num">7</div><p><strong>Open audit.</strong> Code available for inspection.</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- APPLICATIONS -->
+<section id="applications">
+    <div class="container">
+        <h2 class="section-title">Applications</h2>
+        <p class="section-subtitle">From companion robots to autonomous driving — one OS.</p>
+        
+        <div class="features">
+            <div class="feature-card">
+                <div class="icon">🤖</div>
+                <h3>Companion AI</h3>
+                <p>Robots with emotional intelligence. Personalization through Sparks, not surveillance.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🚗</div>
+                <h3>Autonomous Driving</h3>
+                <p>Dashcam Sparks replace $24–48/hr human operators. The driver just drives.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🏪</div>
+                <h3>Business Analytics</h3>
+                <p>Customer behavior without surveillance. Routes, dwell time, conversion — from Sparks.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">👓</div>
+                <h3>Smart Glasses</h3>
+                <p>Solving the Google Glass privacy problem. Raw data can't leak if it never exists.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🔬</div>
+                <h3>Scientific Discovery</h3>
+                <p>Automated multimodal observation → structured data for AI to discover physical laws.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🏥</div>
+                <h3>Medical Privacy</h3>
+                <p>Telemedicine without intimate photos. Sparks describe symptoms, not expose patients.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+    <h2>Join the Perception Revolution</h2>
+    <p>AisthOS is in early development. We need privacy researchers, edge AI engineers, and curious minds.</p>
+    <div class="hero-buttons">
+        <a href="https://github.com/aisthos/aisthos" class="btn btn-primary">GitHub</a>
+        <a href="https://github.com/aisthos/aisthos/tree/main/certification" class="btn btn-secondary">Certification Standard</a>
+        <a href="https://github.com/aisthos/aisthos/tree/main/certification/security-annex" class="btn btn-secondary">Security Annex</a>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p><strong>AisthOS</strong> — The Perception Operating System</p>
+        <p style="margin-top: 8px;">MIT License · <a href="https://github.com/aisthos/aisthos">GitHub</a> · <a href="https://dev.to/desve">dev.to</a></p>
+        <p style="margin-top: 8px; font-size: 12px;">Built by Vladimir Desyatov · AI-assisted development</p>
+    </div>
+</footer>
+
+</body>
+</html>
