@@ -1,0 +1,75 @@
+# AisthOS
+
+> AisthOS is an open-source Perception Operating System that performs "reverse compilation" — converting raw sensor signals upward into structured, anonymized semantic metadata called Sparks. Raw data never leaves the device. MIT license.
+
+AisthOS introduces three formalisms: Template (what to extract), Filter (when to extract), and Spark (the result — a unit of anonymized knowledge, ~200 bytes). Together they form the Perception Compiler.
+
+The system runs on existing hardware: 18 fps at 62.9 mW on GAP9 RISC-V (smart glasses), ~120 fps on Hailo-8L + RPi5 (cameras), 4×5MP + AI on Ambarella CV72S at <3W (dashcams). Compression ratio: >10,000× vs raw 4K video.
+
+AisthOS Inside™ is an open certification standard (like Wi-Fi Certified) guaranteeing architectural privacy: 7 principles, 6 identified threat types, automated compliance tests.
+
+## Core Documentation
+
+- [README](https://github.com/aisthos/aisthos/blob/main/README.md): Full project overview, architecture, benchmarks, security model
+- [REFERENCES](https://github.com/aisthos/aisthos/blob/main/REFERENCES.md): Academic citations, ecosystem integrations, legal compliance
+
+## Certification
+
+- [AisthOS Inside™ Certification Standards](https://github.com/aisthos/aisthos/tree/main/certification): 7 principles, 4 certification levels, 7 compliance tests
+- [Security Annex](https://github.com/aisthos/aisthos/tree/main/certification/security-annex): 6 threat types (4 AisthOS-specific), hard limits, security tests
+
+## Paper
+
+- [AisthOS: A Perception Operating System (arXiv paper)](https://github.com/aisthos/aisthos/tree/main/paper): Reverse compilation, Template-Filter-Spark formalization, benchmarks, AisthOS Inside™
+
+## Key Concepts
+
+- **Template** `T = (M, E, F, R)`: Multimodal schema — modalities, entities, format, cross-modal relationships
+- **Filter** `F = (start, stop, step, significance)`: Semantic triggers (not numerical thresholds)
+- **Spark**: ~200 bytes of anonymized structured knowledge. Contains semantics, not raw data.
+- **Perception Compiler**: AI engine converting sensor streams + Template + Filter into Sparks
+- **Constitutional Layer**: Ethics, privacy, PII validation for every Spark
+
+## Architecture (6 layers)
+
+- Layer 6: Spark Layer — generation, storage, export
+- Layer 5: Perception Compiler — AI semantic extraction
+- Layer 4: Template + Filter Engine — what and when
+- Layer 3: Constitutional Layer — ethics, privacy, PII
+- Layer 2: Skill Runtime — extensions
+- Layer 1: HAL — hardware drivers (ESP32, RPi, cameras, sensors)
+
+## Hardware Benchmarks
+
+- GAP9 RISC-V: 18 fps, 62.9 mW, 9.3h battery (smart glasses)
+- Ambarella CV72S: 4×5MP + AI, <3W (dashcams)
+- Hailo-8L + RPi5: ~120 fps (batch=8), 4-5W, $70 AI Kit
+- Snapdragon 8 Elite: ~45 TOPS, 56 models <5ms
+- Full pipeline: capture(5ms)→detect(8ms)→classify(3ms)→filter(1ms)→spark(2ms) = 19ms → 52 fps
+
+## Security (6 threat types)
+
+- T1: Template Injection — fixed ontology, max 8 fields, no free text
+- T2: Filter Surveillance — max 3 attributes, person-specific banned
+- T3: Physical Prompt Injection — text quarantine, dual PII detection
+- T4: Adversarial PII Bypass — cascade detection
+- T5: LoRA/Model Poisoning — signed adapters only
+- T6: Side-channel — Secure Boot, Flash Encryption, JTAG disable
+- Resolution cap: 160×120 for always-on (facial recognition impossible)
+
+## Applications
+
+- Companion AI robots with emotional intelligence
+- Autonomous driving training via consumer dashcams
+- Business behavior analytics (retail, restaurant, clinic, construction)
+- Smart glasses (solving the Google Glass privacy problem)
+- Medical privacy (telemedicine without intimate photos)
+- Automated scientific discovery (multimodal observation → physics laws)
+
+## Links
+
+- Website: https://aisthos.dev
+- GitHub: https://github.com/aisthos/aisthos
+- License: MIT
+- Author: Vladimir Desyatov
+- Contact: GitHub Issues

@@ -1,0 +1,24 @@
+User-agent: *
+Allow: /
+
+# AI Crawlers — Welcome
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+# Structured content for AI agents
+# llms.txt: https://aisthos.dev/llms.txt
+# AGENTS.md: https://github.com/aisthos/aisthos/blob/main/AGENTS.md
+
+Sitemap: https://aisthos.dev/sitemap.xml
