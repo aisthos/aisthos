@@ -326,10 +326,34 @@
         
         /* RESPONSIVE */
         @media (max-width: 768px) {
+            .hero { padding: 120px 16px 60px; }
             .hero h1 { font-size: 32px; }
             .hero .tagline { font-size: 16px; }
-            .concept { padding: 24px; }
+            .hero .subtitle { font-size: 15px; }
+            .hero-mascot { width: 120px; height: 120px; }
+            .hero-buttons { flex-direction: column; align-items: center; }
+            .btn { width: 100%; max-width: 280px; text-align: center; }
+            .concept { padding: 20px; }
+            .concept code { font-size: 13px; }
             .nav-links { display: none; }
+            section { padding: 48px 16px; }
+            .section-title { font-size: 26px; }
+            .section-subtitle { font-size: 15px; }
+            .numbers { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .number-card { padding: 20px 16px; }
+            .number-card .big { font-size: 28px; }
+            .features { grid-template-columns: 1fr; gap: 16px; }
+            .feature-card { padding: 24px; }
+            .hw-table { font-size: 12px; }
+            .hw-table th, .hw-table td { padding: 10px 8px; }
+            .principles { grid-template-columns: 1fr; }
+            .cta h2 { font-size: 24px; }
+        }
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 26px; }
+            .numbers { grid-template-columns: 1fr 1fr; }
+            .number-card .big { font-size: 24px; }
+            .hw-table { display: block; overflow-x: auto; }
         }
     </style>
 </head>
