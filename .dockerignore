@@ -1,0 +1,17 @@
+.git
+.github
+__pycache__
+*.pyc
+.env
+venv/
+.venv/
+node_modules/
+docs/
+tests/
+*.md
+!README.md
+*.docx
+*.pdf
+paper/
+certification/
+.DS_Store

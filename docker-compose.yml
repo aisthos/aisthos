@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  aisthos:
+    build: .
+    container_name: aisthos
+    restart: unless-stopped
+    ports:
+      - "8765:8765"
+    environment:
+      # Required: set your API key
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      # Optional: model selection
+      - CLAUDE_MODEL=${CLAUDE_MODEL:-claude-haiku-4-5-20251001}
+      # Optional: TTS voice
+      - EDGE_TTS_VOICE=${EDGE_TTS_VOICE:-en-US-AriaNeural}
+      # Server config
+      - SERVER_HOST=0.0.0.0
+      - SERVER_PORT=8765
+    volumes:
+      # Persist memory and sparks between restarts
+      - aisthos-data:/app/data
+      - aisthos-memory:/app/memory
+      # Optional: mount custom skills
+      - ./skills:/app/skills:ro
+    # Optional: use GPU (NVIDIA)
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+
+  # Optional: local LLM via Ollama (uncomment to use)
+  # ollama:
+  #   image: ollama/ollama:latest
+  #   container_name: aisthos-ollama
+  #   restart: unless-stopped
+  #   ports:
+  #     - "11434:11434"
+  #   volumes:
+  #     - ollama-models:/root/.ollama
+  #   # GPU support
+  #   deploy:
+  #     resources:
+  #       reservations:
+  #         devices:
+  #           - driver: nvidia
+  #             count: 1
+  #             capabilities: [gpu]
+
+volumes:
+  aisthos-data:
+  aisthos-memory:
+  # ollama-models:
