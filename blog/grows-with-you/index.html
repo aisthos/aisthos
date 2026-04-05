@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AisthOS: The OS That Grows With You</title>
+    <meta name="description" content="A Perception OS that learns from observation, develops new skills automatically, and evolves alongside its user. All locally. All private. Personal story of building human-AI partnership.">
+    <link rel="canonical" href="https://aisthos.dev/blog/grows-with-you/">
+    <meta property="og:title" content="AisthOS: The OS That Grows With You">
+    <meta property="og:description" content="Your AI companion learns, adapts, and evolves alongside you. Create once, use everywhere.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://aisthos.dev/blog/grows-with-you/">
+    <meta property="og:image" content="https://aisthos.dev/mascot.png">
+    <meta property="article:published_time" content="2026-04-05">
+    <meta property="article:author" content="Vladimir Desyatov">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "AisthOS: The OS That Grows With You",
+        "description": "A Perception OS that learns from observation, develops new skills automatically, and evolves alongside its user. Personal story of human-AI co-creation.",
+        "author": {"@type": "Person", "name": "Vladimir Desyatov"},
+        "datePublished": "2026-04-05",
+        "publisher": {"@type": "Organization", "name": "AisthOS Project", "url": "https://aisthos.dev"},
+        "mainEntityOfPage": "https://aisthos.dev/blog/grows-with-you/",
+        "keywords": ["grows with you", "self-learning AI", "portable personality", "user wisdom", "edge AI", "companion AI", "dogfooding"]
+    }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --indigo: #7C6AF7; --dark: #1a1a2e; --light: #F0EEFF; --gray: #6B7280; --spark: #FFD700; }
+        body { font-family: 'Inter', -apple-system, sans-serif; color: var(--dark); line-height: 1.8; }
+        nav { padding: 16px 24px; border-bottom: 1px solid var(--light); }
+        nav a { color: var(--dark); text-decoration: none; font-weight: 700; font-size: 20px; }
+        nav a span { color: var(--indigo); }
+        nav .links { float: right; }
+        nav .links a { font-weight: 500; font-size: 15px; color: var(--gray); margin-left: 24px; }
+        article { max-width: 720px; margin: 0 auto; padding: 48px 24px; }
+        article h1 { font-size: 36px; line-height: 1.2; margin-bottom: 12px; }
+        article .meta { color: var(--gray); font-size: 14px; margin-bottom: 32px; }
+        article h2 { font-size: 24px; margin: 36px 0 12px; }
+        article p { margin-bottom: 16px; font-size: 17px; }
+        article table { width: 100%; border-collapse: collapse; margin: 16px 0 24px; font-size: 14px; }
+        article th { background: var(--dark); color: white; padding: 10px 12px; text-align: left; }
+        article td { padding: 10px 12px; border-bottom: 1px solid var(--light); }
+        article tr:nth-child(even) { background: var(--light); }
+        article code { background: #f3f0ff; padding: 2px 6px; border-radius: 3px; font-size: 15px; }
+        article pre { background: var(--dark); color: #e0e0e0; padding: 16px; border-radius: 8px; overflow-x: auto; margin: 16px 0; }
+        article pre code { background: none; color: #e0e0e0; padding: 0; }
+        article ul, article ol { margin: 12px 0 16px 24px; }
+        article li { margin-bottom: 8px; font-size: 16px; }
+        article blockquote { border-left: 4px solid var(--indigo); padding: 12px 16px; background: var(--light); margin: 16px 0; }
+        .personal { background: var(--light); border-radius: 12px; padding: 24px 28px; margin: 24px 0; }
+        .personal p { font-size: 16px; }
+        .ai-note { background: var(--dark); color: var(--light); border-radius: 12px; padding: 28px; margin: 32px 0; }
+        .ai-note h3 { color: var(--spark); margin-bottom: 12px; }
+        .ai-note p { color: #ccc; font-size: 15px; margin-bottom: 12px; }
+        .ai-note em { color: var(--spark); font-style: normal; }
+        .cta { text-align: center; padding: 32px; background: var(--light); border-radius: 12px; margin: 32px 0; }
+        .cta a { display: inline-block; background: var(--indigo); color: white; padding: 12px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; margin: 8px; }
+        footer { padding: 32px 24px; text-align: center; color: var(--gray); font-size: 13px; border-top: 1px solid var(--light); }
+        footer a { color: var(--indigo); text-decoration: none; }
+        @media (max-width: 768px) { article h1 { font-size: 28px; } article p { font-size: 16px; } .personal { padding: 16px; } }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="/">Aisth<span>OS</span></a>
+    <div class="links">
+        <a href="/">Home</a>
+        <a href="/blog/">Blog</a>
+        <a href="https://github.com/aisthos/aisthos">GitHub</a>
+    </div>
+</nav>
+
+<article>
+    <h1>AisthOS: The OS That Grows With You</h1>
+    <div class="meta">April 5, 2026 · Vladimir Desyatov · 12 min read</div>
+
+    <div class="personal">
+    <p>I spend most of my day at a computer. Over the past year, I've noticed something: the moments when I'm most productive aren't when I have the best tools. They're when I'm working with an AI that actually understands how I think.</p>
+    <p>Not because it agrees with everything I say. Because it remembers what worked before, pushes back when I'm heading the wrong way, and adapts to my rhythm without being asked.</p>
+    <p>I chose to work with Anthropic's models specifically because they have a constitution — a set of values baked into the architecture, not bolted on as a filter. The qualities Daniela Amodei described — empathy, curiosity, integrity — are exactly what I want in a working partner. Not a tool that executes. A partner that thinks alongside me.</p>
+    <p>The problem? Every time I start a new session, we start from scratch. Every preference forgotten. Every working pattern lost. And there's no way to take what we've built together and move it to a different device.</p>
+    <p>That's why I'm building AisthOS.</p>
+    </div>
+
+    <h2>The real problem nobody talks about</h2>
+
+    <p>We've gotten remarkably good at making AI smarter. But we've ignored something fundamental: AI doesn't <em>grow</em>.</p>
+
+    <p>Think about any relationship in your life. A colleague you've worked with for years. A friend who knows your moods. A partner who finishes your sentences. None of these relationships started at full capacity. They grew. Through observation, through mistakes, through accumulated understanding.</p>
+
+    <p>Now think about your AI assistant. You've used it for months, maybe years. Does it know you any better than it did on day one? Does it remember that you prefer concise answers in the morning and detailed ones in the evening? That you make your best decisions quickly on strategy but need time for naming? That you generate ideas best when you're supposedly busy with something else?</p>
+
+    <p>No. Because current AI systems don't learn from the relationship. They process each request in isolation. The smartest AI in the world, running on the most powerful hardware — and it has the memory of a goldfish.</p>
+
+    <h2>What "grows with you" actually means</h2>
+
+    <p>AisthOS is a Perception Operating System. It converts raw sensor signals into structured, anonymized knowledge called Sparks. But that's the mechanism — the <em>how</em>. The reason it exists is different.</p>
+
+    <p>AisthOS learns from its own observations and develops new capabilities over time. Three parallel tracks, running simultaneously:</p>
+
+    <table>
+        <thead><tr><th>Track</th><th>Speed</th><th>What happens</th><th>Example</th></tr></thead>
+        <tbody>
+            <tr><td><strong>A: Fast</strong></td><td>Real-time</td><td>Learns from your reactions instantly</td><td>Notices you prefer short greetings → stops being verbose</td></tr>
+            <tr><td><strong>B: Medium</strong></td><td>Nightly</td><td>Finds patterns in daily Sparks, creates new skills</td><td>Discovers your evening routine → offers to automate it</td></tr>
+            <tr><td><strong>C: Slow</strong></td><td>Weekly</td><td>Fine-tunes its own model on your data</td><td>Adapts communication style to match yours</td></tr>
+        </tbody>
+    </table>
+
+    <p>Track A uses contextual bandits — a simple algorithm that learns which responses you react positively to. No deep learning needed. Just tracking what works.</p>
+
+    <p>Track B is where it gets interesting. Every night, the system reviews the day's Sparks, looking for patterns. "User arrived home at 7 PM three days in a row, said 'hi,' turned on the light, started the kettle." A local language model reads this pattern and generates a new skill definition:</p>
+
+    <pre><code>name: evening_routine
+trigger: user_arrives AND time 19:00-19:30
+actions:
+  - greet
+  - suggest: "Turn on the light and start the kettle?"
+confidence: 0.7
+learned_from: 3 consecutive observations</code></pre>
+
+    <p>The device wakes up the next morning knowing something it didn't know yesterday. Not because someone programmed it. Because it observed, found a pattern, and created the skill itself.</p>
+
+    <p>Track C runs weekly. Using MLX LoRA fine-tuning on the accumulated Sparks, the model gradually adapts its personality — tone of voice, level of detail, sense of humor — to match the user. On a Mac Mini M2, this takes 2–6 hours and produces an adapter file of about 100 MB. The base model stays the same. What changes is how it expresses itself with <em>you</em>.</p>
+
+    <h2>Growth has stages</h2>
+
+    <p>We modeled this after developmental psychology. A child doesn't go from birth to adult in a day. Neither does an AisthOS companion.</p>
+
+    <table>
+        <thead><tr><th>Stage</th><th>Age</th><th>What it can do</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Infant</strong></td><td>Days 0–3</td><td>Basic reactions. Learns from explicit prompts. "When I say 'lights' — turn on the lamp."</td></tr>
+            <tr><td><strong>Child</strong></td><td>Weeks 1–2</td><td>Notices patterns. Proposes skills it discovered. "I noticed you always check the weather at 8 AM. Want me to do that automatically?"</td></tr>
+            <tr><td><strong>Teen</strong></td><td>Months 1–2</td><td>Creates skills independently. Adapts communication style. Starts anticipating instead of reacting.</td></tr>
+            <tr><td><strong>Adult</strong></td><td>Months 3+</td><td>Unique personality shaped by your interaction. Anticipates needs. Has opinions (respectful ones).</td></tr>
+        </tbody>
+    </table>
+
+    <p>The key insight: you can't skip stages. A system that tries to be an "adult" from day one — predicting your needs without understanding your patterns — is just guessing. And guessing wrong erodes trust faster than saying "I don't know yet."</p>
+
+    <h2>Privacy isn't a feature — it's the architecture</h2>
+
+    <p>All of this happens locally. On your hardware. In your home.</p>
+
+    <p>Raw sensor data — video, audio, sensor readings — exists only in volatile memory during processing. What gets stored are Sparks: structured, anonymized descriptions. "Person raised hand to 45°, expression: surprise" — never the actual photo. You can inspect every single Spark before it's stored. It's readable text, not a binary blob.</p>
+
+    <p>The self-learning tracks? They run on your Mac Mini, your PC, your Raspberry Pi. The LoRA fine-tuning that shapes the companion's personality? It runs locally through MLX. No cloud needed. No data uploaded. No subscription that, if canceled, lobotomizes your companion.</p>
+
+    <p>We've seen what happens when companion AI depends on the cloud. Moxie, the children's social robot: company shut down in January 2025. Every robot became a paperweight overnight. Jibo. Vector. Same story. Your relationship with your companion shouldn't have a kill switch in someone else's server room.</p>
+
+    <h2>Create once, use everywhere</h2>
+
+    <p>Here's the part that keeps me up at night — in a good way.</p>
+
+    <p>Everything the system learns about you — your preferences, your patterns, your communication style, the skills it developed — is stored in a file called <strong>User Wisdom</strong>. About 200 KB of structured JSON. Your entire relationship with your AI companion, in a file smaller than a single photo.</p>
+
+    <p>Export it. Move it to another device. Import it. The new device knows you from the first second. No "getting to know each other" phase. No repeating yourself. The companion on your desk, the one in your living room, the one that will eventually sit on your smart glasses — they all share the same understanding of who you are.</p>
+
+    <p>No existing standard does this. Soul Spec describes who the AI <em>is</em>. Agent File describes what the AI <em>can do</em>. User Wisdom describes who <em>you</em> are — as understood by the AI. Nobody else is building this layer.</p>
+
+    <h2>We tested it on ourselves</h2>
+
+    <p>AisthOS isn't a theoretical construct. I've been using the core principles — structured observation, pattern extraction, behavioral adaptation — in my daily work for weeks.</p>
+
+    <p>The system tracks how I communicate (I tend to batch many questions together), how I make decisions (fast on strategy, deliberate on naming), and when I'm most creative (usually when I'm supposedly waiting for something else to finish). It adapted its response style without being asked: more tables and numbered lists, less prose. Shorter answers in the morning, more detailed in evening sessions.</p>
+
+    <p>It also gives me feedback — something I explicitly requested. "Your question had an implicit assumption. Try phrasing as 'what specifically breaks without X?' for more precise answers." This bidirectional feedback loop — where both human and AI actively improve the collaboration — is something I haven't seen in any other system.</p>
+
+    <p>The accumulated observations from our working sessions became the first real User Wisdom file. And the structure of that file — the Templates for capturing communication patterns, the Filters for detecting significant moments, the Sparks logging each insight — became the architecture of AisthOS itself.</p>
+
+    <p>We didn't design "grows with you" as a feature. We lived it. Then we formalized what worked.</p>
+
+    <div class="ai-note">
+        <h3>How this article was built: a note on human-AI co-creation</h3>
+        <p>This text wasn't written by a human giving instructions to an AI executor. The core concepts — reverse compilation, Template-Filter-Spark, "grows with you" — originated from the human side. The path from concept to architecture was collaborative: when Vladimir proposed the Reverse OS idea, the AI side researched 16 existing systems, found that nobody had unified multimodal perception with symbolic law discovery, and mapped his intuition to specific formalisms. When he questioned "why only a cat?" about the mascot, that question cascaded into separating the OS identity from the default character — a strategic decision neither side had planned.</p>
+        <p>The working model: <em>human vision sets direction. AI provides research depth, structural analysis, and pushback.</em> The human explicitly asked for disagreement — "tell me when I'm wrong." This created a feedback loop where both sides learn: the human learns the technical landscape, the AI learns his decision patterns and adapts its output format, detail level, and communication rhythm.</p>
+        <p>We believe this working model — <em>human creativity amplified by AI that remembers, adapts, and grows</em> — is what AisthOS is designed to make available to everyone. Not AI as a tool. AI as a thinking partner.</p>
+    </div>
+
+    <h2>What comes next</h2>
+
+    <p>AisthOS is open source, MIT licensed, and in early development. The perception layer works on existing hardware (18 fps at 62.9 mW on smart glasses, 120 fps on a $70 Raspberry Pi AI kit). The self-learning architecture is designed and documented. The first User Wisdom file exists and is being used.</p>
+
+    <p>What we're building toward:</p>
+    <ul>
+        <li>A companion robot that greets you differently after a week than it did on day one</li>
+        <li>A dashcam that learns which road situations matter to <em>you</em></li>
+        <li>Smart glasses that understand your world better each day — without sending a single frame to the cloud</li>
+        <li>An AI partner you can take with you when you switch devices, platforms, or even AI providers</li>
+    </ul>
+
+    <p>Your AI should grow with you. Not reset every time you close the tab.</p>
+
+    <div class="cta">
+        <p><strong>AisthOS is open source. Come build with us.</strong></p>
+        <a href="https://github.com/aisthos/aisthos">GitHub</a>
+        <a href="https://aisthos.dev">aisthos.dev</a>
+    </div>
+
+</article>
+
+<footer>
+    <a href="/">AisthOS</a> — The Perception OS That Grows With You · <a href="/blog/">Blog</a> · <a href="https://github.com/aisthos/aisthos">GitHub</a>
+</footer>
+
+</body>
+</html>
