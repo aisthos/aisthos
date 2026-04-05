@@ -1,13 +1,13 @@
 # AisthOS
 
-**A Perception Operating System — Reverse compilation of sensor signals into structured knowledge.**
+**The Perception Operating System that grows with you.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![AisthOS Inside](https://img.shields.io/badge/AisthOS_Inside™-Certification-purple.svg)](certification/)
 
-> Every OS compiles *down*. AisthOS compiles *up*.
+> Every OS compiles *down*. AisthOS compiles *up*. And it learns from what it sees.
 
-AisthOS converts raw sensor data (video, audio, IMU, temperature...) into structured, anonymized semantic metadata — **Sparks**. Raw data never leaves the device.
+AisthOS converts raw sensor data (video, audio, IMU, temperature...) into structured, anonymized semantic metadata — **Sparks**. It then learns from those Sparks, develops new skills automatically, and evolves alongside you. All locally. All private. Raw data never leaves the device.
 
 ## Quick start
 
@@ -54,6 +54,20 @@ Layer 1: HAL                  — hardware drivers (ESP32, RPi, cameras...)
 `capture(5ms) → detect(8ms) → classify(3ms) → filter(1ms) → spark(2ms) = 19ms → 52 fps`
 
 **Compression:** 1s of 4K video (H.265) ≈ 2–3 MB → 1 Spark ≈ 200 bytes → **>10,000× reduction**
+
+## Grows With You
+
+AisthOS doesn't just observe — it **learns and evolves** through three parallel tracks:
+
+| Track | Speed | How | Example |
+|-------|-------|-----|---------|
+| **A: Fast** | Real-time | Contextual bandits + Reflexion | Learns which greetings you prefer |
+| **B: Medium** | Nightly | Pattern mining → auto-generates SKILL.md | Discovers your evening routine |
+| **C: Slow** | Weekly | MLX LoRA fine-tuning on Sparks | Adapts communication style to yours |
+
+**Growth stages:** Infant (day 0–3) → Child (week 1–2) → Teen (month 1–2) → Adult (month 3+)
+
+**Portable personality:** Your learned preferences, skills, and personality export to any AisthOS device. Create your companion once, use it everywhere.
 
 ## AisthOS Inside™ Certification
 

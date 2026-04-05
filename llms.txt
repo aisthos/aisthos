@@ -1,8 +1,8 @@
 # AisthOS
 
-> AisthOS is an open-source Perception Operating System that performs "reverse compilation" — converting raw sensor signals upward into structured, anonymized semantic metadata called Sparks. Raw data never leaves the device. MIT license.
+> AisthOS is an open-source Perception Operating System that grows with its user. It performs "reverse compilation" — converting raw sensor signals upward into structured, anonymized semantic metadata called Sparks. The system learns from collected Sparks, develops new skills automatically, and evolves alongside the user. All locally. All private. Raw data never leaves the device. MIT license.
 
-AisthOS introduces three formalisms: Template (what to extract), Filter (when to extract), and Spark (the result — a unit of anonymized knowledge, ~200 bytes). Together they form the Perception Compiler.
+AisthOS introduces three formalisms: Template (what to extract), Filter (when to extract), and Spark (the result — a unit of anonymized knowledge, ~200 bytes). Together they form the Perception Compiler. Sparks feed back into a three-track self-learning system: real-time adaptation (contextual bandits), nightly skill generation (pattern mining → auto-created skills), and weekly model fine-tuning (MLX LoRA on device).
 
 The system runs on existing hardware: 18 fps at 62.9 mW on GAP9 RISC-V (smart glasses), ~120 fps on Hailo-8L + RPi5 (cameras), 4×5MP + AI on Ambarella CV72S at <3W (dashcams). Compression ratio: >10,000× vs raw 4K video.
 
@@ -65,6 +65,18 @@ AisthOS Inside™ is an open certification standard (like Wi-Fi Certified) guara
 - Smart glasses (solving the Google Glass privacy problem)
 - Medical privacy (telemedicine without intimate photos)
 - Automated scientific discovery (multimodal observation → physics laws)
+
+## Self-Learning ("Grows With You")
+
+AisthOS devices learn and evolve through three parallel tracks:
+
+- Track A (FAST, real-time): Contextual bandits learn user preferences from reactions. Reflexion-style verbal self-analysis. Adapts in minutes.
+- Track B (MEDIUM, nightly): Pattern mining across daily Sparks → LLM auto-generates new SKILL.md files. Device wakes up with new abilities.
+- Track C (SLOW, weekly): MLX LoRA fine-tuning on accumulated Sparks. Adapts communication style and personality. 250-475 tok/s on Mac Mini M2.
+
+Growth stages: Infant (days 0-3, basic reactions) → Child (weeks 1-2, pattern discovery) → Teen (months 1-2, self-created skills) → Adult (months 3+, unique personality).
+
+User Wisdom is portable: learned preferences, skills, and personality can be exported and transferred to any AisthOS device. Create your companion once, use everywhere.
 
 ## Links
 
