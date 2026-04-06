@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Try Aisth — AisthOS Interactive Demo</title>
+    <meta name="description" content="Touch the screen. Pet the cat. Watch it react. An interactive demo of AisthOS — the Perception OS that grows with you.">
+    <meta property="og:title" content="Try Aisth — AisthOS Interactive Demo">
+    <meta property="og:description" content="Touch, pet, and interact with Aisth — an AI companion that grows with you. No download needed.">
+    <meta property="og:url" content="https://aisthos.dev/demo/">
+    <meta property="og:image" content="https://aisthos.dev/mascot.png">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "AisthOS Interactive Demo",
+        "description": "Interactive demo of the AisthOS Perception OS companion emotions and touch interactions",
+        "url": "https://aisthos.dev/demo/",
+        "applicationCategory": "DemoApplication",
+        "offers": {"@type": "Offer", "price": "0"}
+    }
+    </script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root { --indigo: #7C6AF7; --dark: #1a1a2e; --light: #F0EEFF; --gray: #6B7280; --spark: #FFD700; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--dark);
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Nav */
+        nav {
+            padding: 14px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #2a2a4a;
+        }
+        nav a { color: #e0e0e0; text-decoration: none; font-weight: 700; font-size: 20px; }
+        nav a span { color: var(--indigo); }
+        nav .links a { font-weight: 400; font-size: 14px; color: var(--gray); margin-left: 20px; }
+        nav .links a:hover { color: var(--indigo); }
+
+        /* Main area */
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            gap: 20px;
+        }
+
+        /* Prompt */
+        .prompt {
+            text-align: center;
+            animation: fadeIn 1s ease;
+        }
+        .prompt h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .prompt h2 span { color: var(--indigo); }
+        .prompt p {
+            color: var(--gray);
+            font-size: 15px;
+        }
+
+        /* Device */
+        .device {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: #fff;
+            border: 3px solid #333;
+            overflow: hidden;
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
+            box-shadow: 0 0 60px rgba(124, 106, 247, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: box-shadow 0.3s, transform 0.15s, background-color 0.5s;
+            position: relative;
+        }
+        .device:hover { box-shadow: 0 0 80px rgba(124, 106, 247, 0.3); }
+        .device:active { transform: scale(0.97); }
+        .device.dark { background: #0d1117; }
+        .device.pink { background: #fce4ec; }
+
+        .device .emoji {
+            font-size: 100px;
+            line-height: 1;
+            transition: opacity 0.2s;
+            pointer-events: none;
+        }
+
+        /* State label */
+        .state-label {
+            background: var(--indigo);
+            color: white;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        /* Touch buttons */
+        .touch-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 420px;
+        }
+        .touch-btn {
+            padding: 8px 14px;
+            border: 1px solid #333;
+            border-radius: 20px;
+            background: transparent;
+            color: #aaa;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.15s;
+            white-space: nowrap;
+        }
+        .touch-btn:hover { background: var(--indigo); color: white; border-color: var(--indigo); }
+        .touch-btn:active { transform: scale(0.95); }
+
+        /* Emotion row */
+        .emo-row {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .emo-btn {
+            width: 36px;
+            height: 36px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            background: transparent;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s;
+        }
+        .emo-btn:hover { border-color: var(--indigo); transform: scale(1.1); }
+        .emo-btn.active { background: var(--indigo); border-color: var(--indigo); }
+        .emo-btn title { font-size: 10px; }
+
+        /* Bottom CTA */
+        .bottom {
+            text-align: center;
+            padding: 20px 24px 32px;
+            border-top: 1px solid #2a2a4a;
+        }
+        .bottom p {
+            color: var(--gray);
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+        .bottom p strong { color: #e0e0e0; }
+        .cta-btn {
+            display: inline-block;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            margin: 0 6px;
+            transition: all 0.15s;
+        }
+        .cta-primary { background: var(--indigo); color: white; }
+        .cta-primary:hover { background: #6b5ce7; }
+        .cta-secondary { background: transparent; color: var(--gray); border: 1px solid #333; }
+        .cta-secondary:hover { border-color: var(--indigo); color: var(--indigo); }
+
+        /* Action hint */
+        .action-hint {
+            color: #555;
+            font-size: 12px;
+            height: 18px;
+            transition: opacity 0.3s;
+        }
+        .action-hint.visible { color: var(--indigo); opacity: 1; }
+        .action-hint.fading { opacity: 0; }
+
+        /* Animations */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0%,100% { box-shadow: 0 0 60px rgba(124,106,247,0.15); } 50% { box-shadow: 0 0 80px rgba(124,106,247,0.35); } }
+        .device.pulse { animation: pulse 2s ease infinite; }
+
+        /* Pet streak */
+        .streak {
+            position: absolute;
+            font-size: 24px;
+            pointer-events: none;
+            animation: floatUp 1s ease forwards;
+        }
+        @keyframes floatUp { from { opacity:1; transform: translateY(0); } to { opacity:0; transform: translateY(-60px); } }
+
+        /* Mobile */
+        @media (max-width: 480px) {
+            .device { width: 220px; height: 220px; }
+            .device .emoji { font-size: 80px; }
+            .prompt h2 { font-size: 22px; }
+            .touch-btn { padding: 6px 10px; font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="/">Aisth<span>OS</span></a>
+    <div class="links">
+        <a href="/">Home</a>
+        <a href="/blog/">Blog</a>
+        <a href="/demo/">Demo</a>
+        <a href="https://github.com/aisthos/aisthos">GitHub</a>
+    </div>
+</nav>
+
+<div class="main">
+    <div class="prompt">
+        <h2>Meet <span>Aisth</span></h2>
+        <p>Tap, pet, or poke. Watch how a companion AI reacts to you.</p>
+    </div>
+
+    <div class="device pulse" id="device" ontouchstart="handleTouch(event)" onmousedown="handleMouse(event)">
+        <div class="emoji" id="face">😐</div>
+    </div>
+
+    <div class="state-label" id="stateLabel">Neutral</div>
+    <div class="action-hint" id="actionHint">&nbsp;</div>
+
+    <div class="touch-row">
+        <button class="touch-btn" onclick="doGesture('tap')">👆 Tap</button>
+        <button class="touch-btn" onclick="doGesture('double_tap')">👆👆 Double tap</button>
+        <button class="touch-btn" onclick="doGesture('pet')">🐾 Pet</button>
+        <button class="touch-btn" onclick="doGesture('long_press')">✋ Sleep</button>
+        <button class="touch-btn" onclick="doGesture('circle')">⭕ Play</button>
+        <button class="touch-btn" onclick="doGesture('poke_repeated')">👉 Poke!</button>
+    </div>
+
+    <div class="emo-row" id="emoRow"></div>
+</div>
+
+<div class="bottom">
+    <p><strong>What you just felt</strong> is AisthOS running in your browser.<br>On a real device, this companion learns your habits and <strong>grows with you</strong>.</p>
+    <a href="https://github.com/aisthos/aisthos" class="cta-btn cta-primary">View on GitHub</a>
+    <a href="/blog/grows-with-you/" class="cta-btn cta-secondary">Read: Grows With You</a>
+</div>
+
+<script>
+const STATES = {
+    neutral:   { e: '😐', bg: '', label: 'Neutral' },
+    happy:     { e: '😊', bg: '', label: 'Happy' },
+    listening: { e: '👂', bg: '', label: 'Listening' },
+    thinking:  { e: '🤔', bg: '', label: 'Thinking' },
+    sleeping:  { e: '😴', bg: 'dark', label: 'Sleeping...' },
+    surprised: { e: '😲', bg: '', label: 'Surprised!' },
+    sad:       { e: '😢', bg: '', label: 'Sad' },
+    love:      { e: '😻', bg: 'pink', label: 'Love ♥' },
+    annoyed:   { e: '😤', bg: '', label: 'Stop poking!' },
+    excited:   { e: '⚡', bg: '', label: 'Spark!' },
+    curious:   { e: '🧐', bg: '', label: 'Curious...' },
+    greeting:  { e: '👋', bg: '', label: 'Hello!' },
+    nyan:      { e: '🌈', bg: '', label: 'NYAN MODE!' },
+};
+
+let current = 'neutral';
+let petCount = 0;
+let pokeCount = 0;
+let sleeping = false;
+let idleTimer = null;
+
+// Build small emotion buttons
+const emoRow = document.getElementById('emoRow');
+Object.entries(STATES).forEach(([key, s]) => {
+    const btn = document.createElement('button');
+    btn.className = 'emo-btn';
+    btn.textContent = s.e;
+    btn.title = s.label;
+    btn.onclick = () => setState(key);
+    emoRow.appendChild(btn);
+});
+
+function setState(state) {
+    const s = STATES[state] || STATES.neutral;
+    const device = document.getElementById('device');
+    const face = document.getElementById('face');
+
+    device.className = 'device ' + (s.bg || '');
+    face.textContent = s.e;
+    document.getElementById('stateLabel').textContent = s.label;
+    current = state;
+
+    // Reset idle timer
+    clearTimeout(idleTimer);
+    if (state !== 'sleeping') {
+        idleTimer = setTimeout(() => setState('neutral'), 8000);
+    }
+}
+
+function doGesture(gesture) {
+    // Wake from sleep
+    if (sleeping && gesture !== 'long_press') {
+        sleeping = false;
+        setState('greeting');
+        spawnFloat('☀️');
+        return;
+    }
+
+    switch(gesture) {
+        case 'tap':
+            pokeCount++;
+            petCount = 0;
+            if (pokeCount >= 4) {
+                setState('annoyed');
+                spawnFloat('💢');
+                showHint('Stop poking! Aisth is annoyed.');
+            } else {
+                setState('surprised');
+                showHint('Tap → Surprised! (tap 4x to annoy)');
+            }
+            break;
+        case 'double_tap':
+            pokeCount = 0;
+            setState('listening');
+            showHint('Double tap → Listening mode');
+            break;
+        case 'pet':
+            petCount++;
+            pokeCount = 0;
+            if (petCount >= 5) {
+                setState('love');
+                spawnFloat('💕');
+                showHint('Pet x' + petCount + ' → Love! Aisth adores you.');
+            } else if (petCount >= 3) {
+                setState('happy');
+                spawnFloat('♥');
+                showHint('Pet x' + petCount + ' → Happy! Keep going...');
+            } else {
+                setState('happy');
+                showHint('Pet x' + petCount + ' → Happy');
+            }
+            break;
+        case 'long_press':
+            if (sleeping) {
+                sleeping = false;
+                setState('greeting');
+                spawnFloat('☀️');
+                showHint('Wake up! Good morning, Aisth.');
+            } else {
+                sleeping = true;
+                petCount = 0;
+                pokeCount = 0;
+                setState('sleeping');
+                clearTimeout(idleTimer);
+                spawnFloat('💤');
+                showHint('Sleep mode. Mic off. Tap to wake.');
+            }
+            break;
+        case 'circle':
+            petCount = 0;
+            pokeCount = 0;
+            setState('excited');
+            spawnFloat('✨');
+            showHint('Circle → Play mode! Spark generated!');
+            break;
+        case 'poke_repeated':
+            pokeCount += 2;
+            petCount = 0;
+            setState('annoyed');
+            spawnFloat('💢');
+            showHint('Poke! Aisth doesn\'t like that.');
+            break;
+    }
+}
+
+let hintTimer = null;
+function showHint(text) {
+    const hint = document.getElementById('actionHint');
+    hint.textContent = text;
+    hint.className = 'action-hint visible';
+    clearTimeout(hintTimer);
+    hintTimer = setTimeout(() => { hint.className = 'action-hint fading'; }, 2000);
+}
+
+function spawnFloat(emoji) {
+    const device = document.getElementById('device');
+    const el = document.createElement('div');
+    el.className = 'streak';
+    el.textContent = emoji;
+    el.style.left = (30 + Math.random() * 40) + '%';
+    el.style.top = (20 + Math.random() * 30) + '%';
+    device.appendChild(el);
+    setTimeout(() => el.remove(), 1000);
+}
+
+// Click on device = tap
+function handleMouse(e) {
+    e.preventDefault();
+    doGesture('tap');
+}
+function handleTouch(e) {
+    e.preventDefault();
+    doGesture('tap');
+}
+
+// Easter egg: rapid 5 taps = nyan
+let rapidTaps = 0;
+let rapidTimer = null;
+document.getElementById('device').addEventListener('click', () => {
+    rapidTaps++;
+    clearTimeout(rapidTimer);
+    rapidTimer = setTimeout(() => { rapidTaps = 0; }, 800);
+    if (rapidTaps >= 7) {
+        setState('nyan');
+        spawnFloat('🌈');
+        rapidTaps = 0;
+    }
+});
+
+// Start with greeting
+setTimeout(() => setState('greeting'), 500);
+setTimeout(() => setState('neutral'), 3000);
+</script>
+
+</body>
+</html>
