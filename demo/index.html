@@ -101,6 +101,17 @@
             line-height: 1;
             transition: opacity 0.2s;
             pointer-events: none;
+            width: 85%;
+            height: 85%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .device .emoji img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
         }
 
         /* State label */
@@ -266,19 +277,19 @@
 
 <script>
 const STATES = {
-    neutral:   { e: '😐', bg: '', label: 'Neutral' },
-    happy:     { e: '😊', bg: '', label: 'Happy' },
-    listening: { e: '👂', bg: '', label: 'Listening' },
-    thinking:  { e: '🤔', bg: '', label: 'Thinking' },
-    sleeping:  { e: '😴', bg: 'dark', label: 'Sleeping...' },
-    surprised: { e: '😲', bg: '', label: 'Surprised!' },
-    sad:       { e: '😢', bg: '', label: 'Sad' },
-    love:      { e: '😻', bg: 'pink', label: 'Love ♥' },
-    annoyed:   { e: '😤', bg: '', label: 'Stop poking!' },
-    excited:   { e: '⚡', bg: '', label: 'Spark!' },
-    curious:   { e: '🧐', bg: '', label: 'Curious...' },
-    greeting:  { e: '👋', bg: '', label: 'Hello!' },
-    nyan:      { e: '🌈', bg: '', label: 'NYAN MODE!' },
+    neutral:   { e: '😐', img: 'emotions/neutral.webp', bg: '', label: 'Neutral' },
+    happy:     { e: '😊', img: 'emotions/happy.webp', bg: '', label: 'Happy' },
+    listening: { e: '👂', img: 'emotions/listening.webp', bg: '', label: 'Listening' },
+    thinking:  { e: '🤔', img: 'emotions/thinking.webp', bg: '', label: 'Thinking' },
+    sleeping:  { e: '😴', img: 'emotions/sleeping.webp', bg: 'dark', label: 'Sleeping...' },
+    surprised: { e: '😲', img: 'emotions/surprised.webp', bg: '', label: 'Surprised!' },
+    sad:       { e: '😢', img: 'emotions/sad.webp', bg: '', label: 'Sad' },
+    love:      { e: '😻', img: 'emotions/love.webp', bg: 'pink', label: 'Love ♥' },
+    annoyed:   { e: '😤', img: 'emotions/annoyed.webp', bg: '', label: 'Annoyed' },
+    excited:   { e: '⚡', img: 'emotions/excited.png', bg: '', label: 'Spark!' },
+    curious:   { e: '🧐', img: 'emotions/curious.png', bg: '', label: 'Curious...' },
+    greeting:  { e: '👋', img: 'emotions/greeting.png', bg: '', label: 'Hello!' },
+    nyan:      { e: '🌈', img: 'emotions/nyan.webp', bg: '', label: 'NYAN MODE!' },
 };
 
 let current = 'neutral';
@@ -304,7 +315,14 @@ function setState(state) {
     const face = document.getElementById('face');
 
     device.className = 'device ' + (s.bg || '');
-    face.textContent = s.e;
+
+    // Show real mascot image or fallback to emoji
+    if (s.img) {
+        face.innerHTML = '<img src="' + s.img + '" alt="' + s.label + '" style="width:100%;height:100%;object-fit:contain" onerror="this.parentElement.textContent=\'' + s.e + '\'">';
+    } else {
+        face.textContent = s.e;
+    }
+
     document.getElementById('stateLabel').textContent = s.label;
     current = state;
 
